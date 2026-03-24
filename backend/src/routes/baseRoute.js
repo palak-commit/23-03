@@ -16,7 +16,7 @@ export const createBaseRouter = (resourceName, controller, middlewares = {}) => 
     return middlewares[method] || middlewares.all || [];
   };
 
-  // Create
+  // Creat
   router.post(`/${resourceName}`, ...getMw('create'), controller.create);
 
   // Get All
