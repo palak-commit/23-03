@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Revision - Gujarati</title>
+    <style>
+        :root {
+            --primary: #f05032;
+            --dark: #333;
+            --light: #f5f5f5;
+            --accent: #4e4e4e;
+            --card-bg: #fff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: white;
+            background-color: var(--primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+        .nav-links {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: bold;
+            padding: 5px 10px;
+            border: 1px solid var(--primary);
+            border-radius: 5px;
+        }
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .tab-btn {
+            padding: 10px 18px;
+            background-color: var(--dark);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .tab-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        .content-section {
+            display: none;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: fadeIn 0.5s ease;
+        }
+        .content-section.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h2 {
+            color: var(--primary);
+            margin-top: 0;
+        }
+        .explanation {
+            line-height: 1.6;
+            font-size: 18px;
+            background: #fff5f2;
+            padding: 15px;
+            border-left: 5px solid var(--primary);
+            margin-bottom: 20px;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .analogy {
+            font-style: italic;
+            background: #e1f5fe;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border-left: 5px solid #03a9f4;
+            margin-top: 15px;
+        }
+        .footer {
+            margin-top: 40px;
+            font-weight: bold;
+            color: #666;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav-links">
+    <a href="index.html">⬅️ JS Revision</a>
+    <a href="react.html">⚛️ React Core</a>
+    <a href="advanced-react.html">🔥 Advanced React</a>
+    <a href="node.html">🟢 Node.js Basics</a>
+    <a href="devops.html">♾️ DevOps & Production</a>
+</div>
+
+<header>
+    <a href="index.html" style="float: right; text-decoration: none; background: #f7df1e; color: #222; padding: 10px 15px; border-radius: 8px; font-weight: bold;">Restart Revision 🔄</a>
+    <h1>Git Revision 🟠</h1>
+    <p>Git અને GitHub ના બધા કમાન્ડ્સ ગુજરાતીમાં!</p>
+</header>
+
+<div class="container">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab(event, 'git-intro')">Git Intro</button>
+        <button class="tab-btn" onclick="showTab(event, 'basic-commands')">Basic Commands 🛠️</button>
+        <button class="tab-btn" onclick="showTab(event, 'branching')">Branching 🌿</button>
+        <button class="tab-btn" onclick="showTab(event, 'remote')">Remote & GitHub 🌐</button>
+        <button class="tab-btn" onclick="showTab(event, 'undo')">Undo Changes ↩️</button>
+        <button class="tab-btn" onclick="showTab(event, 'stashing')">Stashing 📦</button>
+        <button class="tab-btn" onclick="showTab(event, 'merging')">Merging & Conflicts 🤝</button>
+        <button class="tab-btn" onclick="showTab(event, 'best-practices')">Best Practices ✅</button>
+    </div>
+
+    <!-- Git Intro Section -->
+    <div id="git-intro" class="content-section active">
+        <h2>1. Git શું છે? 🟠</h2>
+        <div class="explanation">
+            Git એ એક <b>Version Control System (VCS)</b> છે. તે તમારા કોડમાં થતા દરેક ફેરફારને યાદ રાખે છે. જો ભવિષ્યમાં કંઈક લોચો થાય, તો તમે જૂના વર્ઝન પર પાછા જઈ શકો છો.
+        </div>
+        <div class="analogy">
+            <b>રીયલ લાઈફ:</b> વિડીયો ગેમમાં 'Save Points'. તમે રમત રમો અને ગેમ સેવ કરો, જો આગળ જઈને મરી જાઓ (કોડ ક્રેશ થાય), તો તમે સેવ કરેલી જગ્યાએથી ફરી શરૂ કરી શકો!
+        </div>
+        <h3>શા માટે Git વાપરવું જોઈએ?</h3>
+        <ul>
+            <li>કોડની હિસ્ટ્રી સાચવવા માટે.</li>
+            <li>ટીમમાં સાથે કામ કરવા માટે.</li>
+            <li>અલગ-અલગ ફીચર્સ પર એકસાથે કામ કરવા માટે.</li>
+            <li>ભૂલ થાય તો પાછા જવા માટે.</li>
+        </ul>
+    </div>
+
+    <!-- Basic Commands Section -->
+    <div id="basic-commands" class="content-section">
+        <h2>2. Basic Git Commands 🛠️</h2>
+        <div class="explanation">
+            પ્રોજેક્ટ શરૂ કરવાથી લઈને ફેરફારો સેવ કરવા સુધીના મુખ્ય કમાન્ડ્સ:
+        </div>
+        <pre><code># ૧. નવો પ્રોજેક્ટ શરૂ કરવો
+git init
+
+# ૨. ફાઈલનું સ્ટેટસ ચેક કરવું (કઈ ફાઈલ બદલાઈ છે)
+git status
+
+# ૩. ફાઈલને 'Staging Area' માં ઉમેરવી (તૈયારી કરવી)
+git add file_name.js   # ફક્ત એક ફાઈલ
+git add .              # બધી જ ફાઈલો
+
+# ૪. ફેરફારોને 'કાયમી' સેવ કરવા (Commit)
+git commit -m "તમારો મેસેજ અહીં લખો"
+
+# ૫. અત્યાર સુધીના બધા જ કમિટ્સ જોવા
+git log --oneline</code></pre>
+        <div class="analogy">
+            <b>એનાલોજી:</b> ફોટો પડાવવો. 
+            - <b>git add:</b> બધા મિત્રોને ફોટોમાં વ્યવસ્થિત ગોઠવવા (તૈયારી).
+            - <b>git commit:</b> કેમેરાનું બટન દબાવવું (ફોટો કાયમી સેવ થઈ ગયો).
+        </div>
+    </div>
+
+    <!-- Branching Section -->
+    <div id="branching" class="content-section">
+        <h2>3. Branching (બ્રાન્ચિંગ) 🌿</h2>
+        <div class="explanation">
+            બ્રાન્ચિંગ એટલે મેઈન કોડને અસર કર્યા વગર નવા ફીચર પર અલગથી કામ કરવું.
+        </div>
+        <pre><code># ૧. બધી બ્રાન્ચ જોવી
+git branch
+
+# ૨. નવી બ્રાન્ચ બનાવવી
+git branch feature-name
+
+# ૩. બીજી બ્રાન્ચ પર જવું (સ્વિચ કરવું)
+git checkout feature-name   # જૂની રીત
+git switch feature-name     # નવી રીત
+
+# ૪. નવી બ્રાન્ચ બનાવીને તરત ત્યાં જવું
+git checkout -b new-feature</code></pre>
+        <div class="analogy">
+            <b>એનાલોજી:</b> એક ઝાડની ડાળીઓ. મેઈન થડ (Main Branch) સુરક્ષિત રહે છે, તમે નવી ડાળી (Branch) પર નવું કામ કરી શકો છો. જો કામ સારું લાગે તો તેને થડ સાથે જોડી શકાય.
+        </div>
+    </div>
+
+    <!-- Remote Section -->
+    <div id="remote" class="content-section">
+        <h2>4. Remote Repositories (GitHub) 🌐</h2>
+        <div class="explanation">
+            જ્યારે તમારે તમારો કોડ ઇન્ટરનેટ પર (GitHub, GitLab) મૂકવો હોય ત્યારે આ કમાન્ડ્સ વપરાય છે.
+        </div>
+        <pre><code># ૧. ઓનલાઈન રેપોઝીટરી જોડવી
+git remote add origin https://github.com/user/repo.git
+
+# ૨. કોડને ઓનલાઈન મોકલવો (Push)
+git push origin main
+
+# ૩. ઓનલાઈનથી નવો કોડ મેળવવો (Pull)
+git pull origin main
+
+# ૪. આખો પ્રોજેક્ટ કોપી કરીને ડાઉનલોડ કરવો
+git clone https://github.com/user/repo.git</code></pre>
+        <div class="analogy">
+            <b>એનાલોજી:</b> Google Drive. તમે તમારા કમ્પ્યુટરમાં ફાઈલ બનાવો અને પછી તેને ડ્રાઈવ પર અપલોડ (Push) કરો જેથી બીજા લોકો પણ જોઈ શકે.
+        </div>
+    </div>
+
+    <!-- Undo Changes Section -->
+    <div id="undo" class="content-section">
+        <h2>5. Undo Changes (ફેરફારો પાછા ખેંચવા) ↩️</h2>
+        <div class="explanation">
+            જો ભૂલથી કંઈક ખોટું લખાઈ જાય, તો તેને સુધારવાની રીતો:
+        </div>
+        <pre><code># ૧. ફાઈલમાં કરેલા ફેરફારો કાઢી નાખવા (પહેલા જેવી કરવી)
+git checkout -- file_name.js
+
+# ૨. સ્ટેજીંગ એરિયામાંથી ફાઈલ પાછી કાઢવી (Unstage)
+git reset HEAD file_name.js
+
+# ૩. છેલ્લો કમિટ રદ કરવો (પણ કોડ સાચવી રાખવો)
+git reset --soft HEAD~1
+
+# ૪. છેલ્લો કમિટ અને કોડ બંને પૂરેપૂરા ઉડાવી દેવા (સાવધાન!)
+git reset --hard HEAD~1
+
+# ૫. કોઈ જૂના કમિટને રિવર્સ કરવો (નવો કમિટ બનશે)
+git revert commit_id</code></pre>
+    </div>
+
+    <!-- Stashing Section -->
+    <div id="stashing" class="content-section">
+        <h2>6. Stashing (કામચલાઉ સાચવવું) 📦</h2>
+        <div class="explanation">
+            જ્યારે તમે કોઈ કામ કરતા હોવ અને અચાનક બીજી બ્રાન્ચ પર જવું પડે, ત્યારે અધૂરું કામ 'Stash' માં સાચવી શકાય છે.
+        </div>
+        <pre><code># ૧. અધૂરું કામ સાચવી લેવું (Temporary save)
+git stash
+
+# ૨. સાચવેલું કામ પાછું લાવવું
+git stash pop
+
+# ૩. સાચવેલા કામનું લિસ્ટ જોવું
+git stash list</code></pre>
+        <div class="analogy">
+            <b>એનાલોજી:</b> રસોઈ કરતી વખતે અચાનક કોઈ મહેમાન આવે, તો તમે શાક સમારવાનું બાજુ પર મૂકીને (Stash) મહેમાનને મળવા જાઓ. મહેમાન જાય એટલે ફરીથી શાક સમારવાનું શરૂ કરો (Pop).
+        </div>
+    </div>
+
+    <!-- Merging Section -->
+    <div id="merging" class="content-section">
+        <h2>7. Merging & Conflicts 🤝</h2>
+        <div class="explanation">
+            જ્યારે એક બ્રાન્ચનું કામ બીજી બ્રાન્ચમાં ભેગું કરવું હોય ત્યારે <b>Merge</b> વપરાય છે.
+        </div>
+        <pre><code># ૧. મેઈન બ્રાન્ચમાં જવું
+git checkout main
+
+# ૨. બીજી બ્રાન્ચને મેઈન સાથે જોડવી
+git merge feature-name</code></pre>
+        <h3>Merge Conflict શું છે?</h3>
+        <p>જ્યારે બે લોકો એક જ ફાઈલની એક જ લાઈન પર અલગ-અલગ ફેરફાર કરે, ત્યારે Git મૂંઝાઈ જાય છે. આને <b>Conflict</b> કહેવાય. તમારે મેન્યુઅલી નક્કી કરવું પડે કે કયો કોડ રાખવો છે.</p>
+    </div>
+
+    <!-- Best Practices Section -->
+    <div id="best-practices" class="content-section">
+        <h2>8. Git Best Practices ✅</h2>
+        <ul>
+            <li><b>નાના કમિટ્સ કરો:</b> એકસાથે બહુ બધો કોડ કમિટ ના કરો.</li>
+            <li><b>સારો મેસેજ લખો:</b> "Fixed bugs" ને બદલે "Login page validation error fixed" લખો.</li>
+            <li><b>મેઈન બ્રાન્ચ સાફ રાખો:</b> હંમેશા નવી બ્રાન્ચ પર જ કામ કરો.</li>
+            <li><b>નિયમિત Pull કરો:</b> બીજાના ફેરફારો લેતા રહો જેથી કન્ફ્લિક્ટ ના આવે.</li>
+            <li><b>.gitignore વાપરો:</b> જે ફાઈલો (node_modules, .env) ઓનલાઈન ના મૂકવી હોય તેને આ ફાઈલમાં લખો.</li>
+        </ul>
+    </div>
+</div>
+
+<div class="footer">
+    જય શ્રી કૃષ્ણ 🤍
+</div>
+
+<script>
+    function showTab(e, tabId) {
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.getElementById(tabId).classList.add('active');
+        if (e && e.currentTarget) {
+            e.currentTarget.classList.add('active');
+        }
+    }
+</script>
+
+</body>
+</html>
