@@ -40,6 +40,16 @@ class UserController extends BaseController {
   create = async (req, res) => {
     try {
       const { name, email, password } = req.body;
+
+      if (!name || !email || !password) {
+        return sendError(res, 'Name, email, and password are required', 400);
+      }
+
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        return sendError(res, 'Email is already registered', 409);
+      }
+
       const createdBy = req.user && req.user.id ? req.user.id : 'System';
 
       const user = new User({
@@ -50,7 +60,13 @@ class UserController extends BaseController {
       });
       
       await user.save();
-      return sendSuccess(res, user, 'User created successfully', 201);
+      const safeUser = {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      };
+
+      return sendSuccess(res, safeUser, 'User created successfully', 201);
     } catch (error) {
       return sendError(res, 'Error creating user', 500, error);
     }
