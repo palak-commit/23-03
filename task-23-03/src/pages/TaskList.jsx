@@ -6,7 +6,6 @@ import { addLog as addLogToStore, clearLogs } from '../store/globalSlice'
 import { useGetTasksQuery, useAddTaskMutation, useUpdateTaskMutation, useDeleteTaskMutation } from '../store/apiServices'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import './TaskList.scss'
 
 const generateId = () => Date.now();
 const getTimeString = () => new Date().toLocaleTimeString();
@@ -119,65 +118,111 @@ function TaskList() {
   };
 
   return (
-    <div className="main-layout">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col lg:flex-row gap-10">
       {/* Left Side: Task List UI */}
-      <div className="app-container">
-        <h1>My Task List 📝</h1>
-        
-        <form onSubmit={formik.handleSubmit} className="input-container">
-          <input 
-            type="text" 
-            name="title"
-            placeholder="Write a task..." 
-            value={formik.values.title}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            onKeyPress={(e) => e.key === 'Enter' && formik.handleSubmit()}
-          />
-          <button type="submit" className={`add-btn ${editId !== null ? 'update-btn' : ''}`}>
-            {editId !== null ? 'Update' : 'Add'}
-          </button>
-          {editId !== null && (
-            <button type="button" className="cancel-btn" onClick={() => { setEditId(null); formik.resetForm(); }}>Cancel</button>
+      <div className="w-full lg:w-1/2 space-y-8">
+        <div className="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+          <h1 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
+            My Task List <span className="text-4xl">📝</span>
+          </h1>
+          
+          <form onSubmit={formik.handleSubmit} className="flex flex-col sm:flex-row gap-3">
+            <div className="flex-grow">
+              <input 
+                type="text" 
+                name="title"
+                placeholder="Write a task..." 
+                value={formik.values.title}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                className={`w-full px-4 py-3 rounded-xl border-2 transition-all outline-none focus:ring-2 focus:ring-indigo-500 ${
+                  formik.touched.title && formik.errors.title 
+                  ? 'border-red-500 bg-red-50' 
+                  : 'border-gray-200 focus:border-indigo-500'
+                }`}
+              />
+            </div>
+            <div className="flex gap-2">
+              <button 
+                type="submit" 
+                className={`flex-grow sm:flex-none px-8 py-3 rounded-xl font-bold text-white shadow-lg transition-all active:scale-95 ${
+                  editId !== null 
+                  ? 'bg-amber-500 hover:bg-amber-600 shadow-amber-100' 
+                  : 'bg-indigo-600 hover:bg-indigo-700 shadow-indigo-100'
+                }`}
+              >
+                {editId !== null ? 'Update' : 'Add'}
+              </button>
+              {editId !== null && (
+                <button 
+                  type="button" 
+                  className="px-6 py-3 rounded-xl font-bold bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors" 
+                  onClick={() => { setEditId(null); formik.resetForm(); }}
+                >
+                  Cancel
+                </button>
+              )}
+            </div>
+          </form>
+          {formik.touched.title && formik.errors.title && (
+            <div className="text-red-500 text-xs font-medium mt-1 ml-1">{formik.errors.title}</div>
           )}
-        </form>
-        {formik.touched.title && formik.errors.title && (
-          <div className="error-msg">{formik.errors.title}</div>
-        )}
 
-        {/* Search Input */}
-        <div className="search-container" style={{ marginTop: '20px', marginBottom: '10px' }}>
-          <input 
-            type="text" 
-            placeholder="🔍 Search tasks..." 
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd' }}
-          />
-        </div>
+          {/* Search Input */}
+          <div className="mt-8 relative group">
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-indigo-500 transition-colors">🔍</span>
+            <input 
+              type="text" 
+              placeholder="Search tasks..." 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-12 pr-4 py-3 rounded-xl border-2 border-gray-100 bg-gray-50 focus:bg-white focus:border-indigo-500 outline-none transition-all"
+            />
+          </div>
 
-        {isFetching ? (
-          <p>Loading tasks...</p>
-        ) : (
-          <ul className="task-list">
-            {tasks.map((task) => (
-              <li key={task._id || task.id} className="task-item">
-                <span className="task-text">{task.title}</span>
-                <div className="btn-group">
-                  <button className="edit-btn" onClick={() => editTask(task._id || task.id, task.title)}>Edit</button>
-                  <button className="delete-btn" onClick={() => deleteTask(task._id || task.id)}>Delete</button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
+          <div className="mt-8">
+            {isFetching ? (
+              <div className="flex items-center gap-3 text-indigo-500 font-medium animate-pulse">
+                <div className="w-5 h-5 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+                Loading tasks...
+              </div>
+            ) : (
+              <ul className="space-y-3">
+                {tasks.map((task) => (
+                  <li key={task._id || task.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-100 hover:border-indigo-200 hover:bg-white transition-all group">
+                    <span className="text-gray-700 font-medium">{task.title}</span>
+                    <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button 
+                        className="p-2 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors" 
+                        onClick={() => editTask(task._id || task.id, task.title)}
+                        title="Edit Task"
+                      >
+                        ✏️
+                      </button>
+                      <button 
+                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors" 
+                        onClick={() => deleteTask(task._id || task.id)}
+                        title="Delete Task"
+                      >
+                        🗑️
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
 
-        {tasks.length === 0 && !isFetching && <p>No tasks yet. Add a new one! 😊</p>}
+            {tasks.length === 0 && !isFetching && (
+              <div className="text-center py-10 space-y-2">
+                <div className="text-4xl">😊</div>
+                <p className="text-gray-500 font-medium">No tasks yet. Add a new one!</p>
+              </div>
+            )}
+          </div>
 
-        <div className="back-btn-container">
           <button 
             onClick={() => navigate('/')} 
-            className="add-btn"
+            className="w-full bg-gray-900 text-white py-4 rounded-xl font-bold mt-10 hover:bg-black transition-colors shadow-lg active:scale-95 flex items-center justify-center gap-2"
           >
             🏠 Back to Home
           </button>
@@ -185,24 +230,43 @@ function TaskList() {
       </div>
 
       {/* Right Side: Flow Visualization */}
-      <div className="flow-container">
-        <div className="flow-header">
-          <span>React Process Flow (RTK Query) ⚡</span>
-          <button onClick={() => dispatch(clearLogs())}>Clear</button>
+      <div className="w-full lg:w-1/2">
+        <div className="bg-gray-900 rounded-2xl p-8 shadow-2xl min-h-[400px]">
+          <div className="flex items-center justify-between mb-8 border-b border-gray-800 pb-4">
+            <span className="text-xl font-bold text-white flex items-center gap-2">
+              React Process Flow <span className="text-indigo-400">⚡</span>
+            </span>
+            <button 
+              onClick={() => dispatch(clearLogs())}
+              className="text-xs font-bold text-indigo-400 border border-indigo-400/30 px-3 py-1.5 rounded-lg hover:bg-indigo-400/10 transition-colors"
+            >
+              CLEAR LOGS
+            </button>
+          </div>
+          
+          <div className="space-y-6">
+            {logs.length === 0 ? (
+              <p className="text-gray-600 italic text-center py-10">Actions will be logged here in real-time...</p>
+            ) : (
+              logs.map(log => (
+                <div key={log.id} className="space-y-2 border-l-2 border-indigo-500/30 pl-4 py-1">
+                  <div className="flex items-center gap-3">
+                    <span className="text-[10px] font-mono text-gray-500 bg-gray-800 px-2 py-0.5 rounded uppercase tracking-tighter">[{log.time}]</span>
+                    <span className="text-sm font-bold text-indigo-400 uppercase tracking-wide">{log.action}</span>
+                  </div>
+                  <div className="space-y-1 ml-2">
+                    {log.steps.map((step, index) => (
+                      <div key={index} className="text-xs text-gray-400 flex items-start gap-2">
+                        <span className="text-indigo-500/50 mt-1">➔</span>
+                        <span>{step}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
         </div>
-        
-        {logs.length === 0 ? (
-          <p style={{ color: '#888' }}>Process will be shown here when you take an action...</p>
-        ) : (
-          logs.map(log => (
-            <div key={log.id} className="log-item">
-              <span className="log-action">[{log.time}] {log.action}</span>
-              {log.steps.map((step, index) => (
-                <span key={index} className="log-step">➔ {step}</span>
-              ))}
-            </div>
-          ))
-        )}
       </div>
     </div>
   )

@@ -40,12 +40,12 @@ function MemberModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="split-modal-overlay">
-      <div className="split-modal auth-modal">
-        <h2>Add New Member 👤</h2>
-        <form onSubmit={formik.handleSubmit} className="auth-form">
-          <div className="form-group">
-            <label>Name:</label>
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[110] p-4">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 border-t-4 border-indigo-600">
+        <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Add New Member 👤</h2>
+        <form onSubmit={formik.handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <label className="block text-sm font-bold text-gray-700">Name:</label>
             <input 
               type="text" 
               name="name" 
@@ -53,14 +53,18 @@ function MemberModal({ isOpen, onClose }) {
               value={formik.values.name}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className={formik.touched.name && formik.errors.name ? 'input-error' : ''}
+              className={`w-full px-4 py-3 rounded-xl border-2 transition-all outline-none focus:ring-2 focus:ring-indigo-500 ${
+                formik.touched.name && formik.errors.name 
+                ? 'border-red-500 bg-red-50' 
+                : 'border-gray-200 focus:border-indigo-500'
+              }`}
             />
             {formik.touched.name && formik.errors.name ? (
-              <div className="error-msg">{formik.errors.name}</div>
+              <div className="text-red-500 text-xs font-medium mt-1">{formik.errors.name}</div>
             ) : null}
           </div>
-          <div className="form-group">
-            <label>Email:</label>
+          <div className="space-y-2">
+            <label className="block text-sm font-bold text-gray-700">Email:</label>
             <input 
               type="email" 
               name="email" 
@@ -68,14 +72,18 @@ function MemberModal({ isOpen, onClose }) {
               value={formik.values.email}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className={formik.touched.email && formik.errors.email ? 'input-error' : ''}
+              className={`w-full px-4 py-3 rounded-xl border-2 transition-all outline-none focus:ring-2 focus:ring-indigo-500 ${
+                formik.touched.email && formik.errors.email 
+                ? 'border-red-500 bg-red-50' 
+                : 'border-gray-200 focus:border-indigo-500'
+              }`}
             />
             {formik.touched.email && formik.errors.email ? (
-              <div className="error-msg">{formik.errors.email}</div>
+              <div className="text-red-500 text-xs font-medium mt-1">{formik.errors.email}</div>
             ) : null}
           </div>
-          <div className="form-group">
-            <label>Password:</label>
+          <div className="space-y-2">
+            <label className="block text-sm font-bold text-gray-700">Password:</label>
             <input 
               type="password" 
               name="password" 
@@ -83,15 +91,19 @@ function MemberModal({ isOpen, onClose }) {
               value={formik.values.password}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              className={formik.touched.password && formik.errors.password ? 'input-error' : ''}
+              className={`w-full px-4 py-3 rounded-xl border-2 transition-all outline-none focus:ring-2 focus:ring-indigo-500 ${
+                formik.touched.password && formik.errors.password 
+                ? 'border-red-500 bg-red-50' 
+                : 'border-gray-200 focus:border-indigo-500'
+              }`}
             />
             {formik.touched.password && formik.errors.password ? (
-              <div className="error-msg">{formik.errors.password}</div>
+              <div className="text-red-500 text-xs font-medium mt-1">{formik.errors.password}</div>
             ) : null}
           </div>
-          <div className="modal-actions">
-            <button type="button" onClick={() => { formik.resetForm(); onClose(); }} className="close-btn">Cancel</button>
-            <button type="submit" className="save-btn" disabled={isRegistering || formik.isSubmitting}>
+          <div className="flex gap-4 pt-4">
+            <button type="button" onClick={() => { formik.resetForm(); onClose(); }} className="flex-1 py-3 px-4 rounded-xl font-bold text-gray-600 bg-gray-100 hover:bg-gray-200 transition-colors">Cancel</button>
+            <button type="submit" className="flex-1 py-3 px-4 rounded-xl font-bold text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-100 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" disabled={isRegistering || formik.isSubmitting}>
               {isRegistering || formik.isSubmitting ? 'Adding...' : 'Add Member 🚀'}
             </button>
           </div>

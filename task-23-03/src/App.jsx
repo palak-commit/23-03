@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import './App.css'
 import TaskList from './pages/TaskList'
 import Home from './pages/Home'
 import Groups from './pages/Groups'
@@ -13,12 +12,12 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   return (
     <Router>
-      <div className="App">
+      <div className="flex flex-col min-h-screen">
         <ToastContainer position="top-center" autoClose={3000} transition={Slide} />
         
         <Header />
 
-        <main className="content-area">
+        <main className="flex-grow py-10 px-4 md:px-0">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/tasks" element={<TaskList />} />
